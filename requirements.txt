@@ -1,0 +1,8 @@
+# CM3020 AI Coursework - Mountain Climbing GA
+# Install with: pip install -r requirements.txt
+
+pybullet>=3.2.5       # Physics simulation engine
+numpy>=1.21.0         # Numerical operations
+matplotlib>=3.5.0     # Plotting graphs for experiments (optional)
+noise>=1.2.2          # Perlin noise for terrain generation
+
