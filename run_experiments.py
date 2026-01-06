@@ -32,7 +32,7 @@ except ImportError:
 # ============================================================
 # SETTINGS - Adjust for faster/slower experiments
 # ============================================================
-GENERATIONS = 40  # Generations per experiment (40 is good balance)
+GENERATIONS = 50  # Generations per experiment (50 for good results)
 # ============================================================
 
 
@@ -44,7 +44,7 @@ def run_population_size_experiments(base_output_dir, generations):
     print("BASIC EXPERIMENT 1: Population Size Comparison")
     print("="*70)
     
-    pop_sizes = [15, 30, 50]
+    pop_sizes = [20, 50, 100]
     all_results = {}
     
     for pop_size in pop_sizes:
@@ -72,7 +72,7 @@ def run_mutation_rate_experiments(base_output_dir, generations):
     print("BASIC EXPERIMENT 2: Mutation Rate Comparison")
     print("="*70)
     
-    mutation_rates = [0.05, 0.15, 0.25]
+    mutation_rates = [0.05, 0.1, 0.2, 0.3]
     all_results = {}
     
     for rate in mutation_rates:
@@ -100,7 +100,7 @@ def run_gene_count_experiments(base_output_dir, generations):
     print("BASIC EXPERIMENT 3: Gene Count (Creature Complexity)")
     print("="*70)
     
-    gene_counts = [2, 4, 6]
+    gene_counts = [2, 3, 5, 7]
     all_results = {}
     
     for gene_count in gene_counts:
