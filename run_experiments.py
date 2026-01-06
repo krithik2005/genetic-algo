@@ -398,10 +398,10 @@ def main():
         base_output_dir, GENERATIONS
     )
     
-    # Multi-landscape takes longer, comment out if needed
-    # all_experiments["Multi-Landscape"] = run_multi_landscape_experiment(
-    #     base_output_dir, GENERATIONS
-    # )
+    # Multi-landscape generalization (tests creature on ALL landscapes)
+    all_experiments["Multi-Landscape"] = run_multi_landscape_experiment(
+        base_output_dir, GENERATIONS
+    )
     
     # ========================================
     # GENERATE PLOTS FOR VIDEO
