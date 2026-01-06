@@ -57,7 +57,9 @@ def run_population_size_experiments(base_output_dir, generations):
             generations=generations,
             iterations=2400,
             mutation_rate=0.1,
-            output_dir=output_dir
+            output_dir=output_dir,
+            use_threading=True,
+            pool_size=4
         )
         all_results[pop_size] = results
     
@@ -85,7 +87,9 @@ def run_mutation_rate_experiments(base_output_dir, generations):
             generations=generations,
             iterations=2400,
             mutation_rate=rate,
-            output_dir=output_dir
+            output_dir=output_dir,
+            use_threading=True,
+            pool_size=4
         )
         all_results[rate] = results
     
@@ -113,7 +117,9 @@ def run_gene_count_experiments(base_output_dir, generations):
             generations=generations,
             iterations=2400,
             mutation_rate=0.1,
-            output_dir=output_dir
+            output_dir=output_dir,
+            use_threading=True,
+            pool_size=4
         )
         all_results[gene_count] = results
     
@@ -142,7 +148,9 @@ def run_landscape_experiments(base_output_dir, generations):
             iterations=2400,
             mutation_rate=0.1,
             landscape_type=landscape,
-            output_dir=output_dir
+            output_dir=output_dir,
+            use_threading=True,
+            pool_size=4
         )
         all_results[landscape] = results
     
@@ -166,7 +174,9 @@ def run_multi_landscape_experiment(base_output_dir, generations):
         iterations=2400,
         mutation_rate=0.1,
         use_multi_landscape=True,
-        output_dir=output_dir
+        output_dir=output_dir,
+        use_threading=True,
+        pool_size=4
     )
     
     return {"multi_landscape": results}
@@ -192,7 +202,9 @@ def run_adaptive_mutation_experiment(base_output_dir, generations):
         iterations=2400,
         mutation_rate=0.1,
         use_adaptive_mutation=False,
-        output_dir=output_dir
+        output_dir=output_dir,
+        use_threading=True,
+        pool_size=4
     )
     all_results["fixed"] = results
     
@@ -206,7 +218,9 @@ def run_adaptive_mutation_experiment(base_output_dir, generations):
         iterations=2400,
         mutation_rate=0.1,
         use_adaptive_mutation=True,
-        output_dir=output_dir
+        output_dir=output_dir,
+        use_threading=True,
+        pool_size=4
     )
     all_results["adaptive"] = results
     
