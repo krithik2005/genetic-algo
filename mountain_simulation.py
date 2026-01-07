@@ -122,7 +122,16 @@ class MountainSimulation:
         with open(xml_file, 'w') as f:
             f.write(xml_str)
         
-        cid = p.loadURDF(xml_file, physicsClientId=pid)
+        try:
+            cid = p.loadURDF(xml_file, physicsClientId=pid)
+            if cid < 0:
+                # Invalid creature, give zero fitness
+                cr.update_position((0, 0, 0), arena_size=self.arena_size)
+                return
+        except Exception:
+            # URDF load failed, give zero fitness
+            cr.update_position((0, 0, 0), arena_size=self.arena_size)
+            return
         
         # Position creature on the flat ground, away from mountain
         # Creature must crawl/move toward the mountain to climb it
@@ -136,14 +145,18 @@ class MountainSimulation:
             physicsClientId=pid
         )
         
-        # Run simulation
-        for step in range(iterations):
-            p.stepSimulation(physicsClientId=pid)
-            if step % 24 == 0:
-                self.update_motors(cid=cid, cr=cr)
-            
-            pos, orn = p.getBasePositionAndOrientation(cid, physicsClientId=pid)
-            cr.update_position(pos, arena_size=self.arena_size)
+        # Run simulation with error handling
+        try:
+            for step in range(iterations):
+                p.stepSimulation(physicsClientId=pid)
+                if step % 24 == 0:
+                    self.update_motors(cid=cid, cr=cr)
+                
+                pos, orn = p.getBasePositionAndOrientation(cid, physicsClientId=pid)
+                cr.update_position(pos, arena_size=self.arena_size)
+        except Exception:
+            # Creature became invalid during simulation, keep what we have
+            pass
     
     def update_motors(self, cid, cr):
         """
@@ -203,7 +216,11 @@ class ThreadedMountainSim:
     @staticmethod
     def static_run_creature(sim, cr, iterations):
         """Static method for multiprocessing pool."""
-        sim.run_creature(cr, iterations)
+        try:
+            sim.run_creature(cr, iterations)
+        except Exception:
+            # If simulation fails, creature keeps default (zero) fitness
+            pass
         return cr
     
     def eval_population(self, pop, iterations):
